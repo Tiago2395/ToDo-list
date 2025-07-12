@@ -2,4 +2,4 @@ import './style.css';
 
 import { App } from "./src/todos/app";
 
-App();
+App("#app");
