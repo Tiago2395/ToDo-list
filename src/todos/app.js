@@ -6,12 +6,21 @@ const ElementsIds = {
     todoList: ".todo-list",
     addTodo: "#new-todo-input",
     completed: "a[href='#/completed']",
+    clrearCompleted: ".clear-completed",
+    pendingCount: "#pending-count",
+    filter: ".filtro",
 }
 
 export const App = (elementId) => {
 
     const displayTodos = () => {
         const todos = todoStore.getTodos(todoStore.getCurrentFilter());
+        if (todoStore.getCurrentFilter() !== "Completed") {
+            let count = 0;
+            todos.forEach((item) => !item.done ? count++ : count);
+            const $pendingTodos = document.querySelector(ElementsIds.pendingCount);
+            $pendingTodos.innerHTML = count;
+        }
         renderTodos(ElementsIds.todoList, todos);
     }
 
@@ -45,6 +54,26 @@ export const App = (elementId) => {
                 displayTodos();
             }
         });
+
+        document.querySelector(ElementsIds.clrearCompleted).addEventListener("click", () => {
+            todoStore.deleteCompleted();
+            displayTodos();
+        });
+
+        const $filters = document.querySelectorAll(ElementsIds.filter);
+        $filters.forEach(filter => {
+            filter.addEventListener("click", (event) => {
+                $filters.forEach(item => item !== event.target ? item.classList.remove("selected") : item.classList.add("selected"));
+                const currentFilter = filter.getAttribute("href").split("/")[1];
+                console.log(currentFilter);
+                if(currentFilter) {
+                    currentFilter === "completed" ? todoStore.setSelectedFilter("Completed") : todoStore.setSelectedFilter("Pending");
+                } else {
+                    todoStore.setSelectedFilter("all");
+                }
+                displayTodos();
+            })
+        })
 
         /*const $completedFilter = document.querySelector(ElementsIds.completed)
         $completedFilter.addEventListener("click", function() {
