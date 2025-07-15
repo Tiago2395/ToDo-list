@@ -33,7 +33,7 @@ const loadStore = () => {
 const getTodos = (filter = Filters.All) => {
     switch (filter) {
         case Filters.All:
-            return [...state.todos]; //Usamos el operador spread para no pasar el objeto por referencia, pasar uno nuevo
+            return [...state.todos]; //Usamos el operador spread para no pasar el objeto por referencia sino uno nuevo
 
         case Filters.Completed:
             return state.todos.filter(todoItem => todoItem.done);
