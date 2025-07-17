@@ -60,7 +60,7 @@ const addTodo = (description) => {
     }
 
     const newTodo = new Todo(description);
-    state.todos = [newTodo, ...state.todos] // === state.todos = [newTodo, state.todos];
+    state.todos.push(newTodo);  // === state.todos = [newTodo, state.todos];
     saveStateIntoLocalStorage();
 }
 
