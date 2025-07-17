@@ -14,13 +14,10 @@ const ElementsIds = {
 export const App = (elementId) => {
 
     const displayTodos = () => {
+        const $pendingTodos = document.querySelector(ElementsIds.pendingCount);
+        const pendingTaks = todoStore.getTodos("Pending").length;
+        $pendingTodos.innerHTML = pendingTaks;
         const todos = todoStore.getTodos(todoStore.getCurrentFilter());
-        if (todoStore.getCurrentFilter() !== "Completed") {
-            let count = 0;
-            todos.forEach((item) => !item.done ? count++ : count);
-            const $pendingTodos = document.querySelector(ElementsIds.pendingCount);
-            $pendingTodos.innerHTML = count;
-        }
         renderTodos(ElementsIds.todoList, todos);
     }
 
@@ -43,14 +40,14 @@ export const App = (elementId) => {
             if (!event.target.classList.contains("destroy")) {
                 const parentItem = event.target.closest("li");
                 const id = parentItem.dataset.id;
-                todoStore.toggleTodo(parseInt(id));
+                todoStore.toggleTodo(id);
                 displayTodos();
             }
 
             if (event.target.classList.contains("destroy")) {
                 const parentItem = event.target.closest("li");
                 const id = parentItem.dataset.id;
-                todoStore.deleteTodo(parseInt(id));
+                todoStore.deleteTodo(id);
                 displayTodos();
             }
         });

@@ -14,7 +14,7 @@ const state = {
 
 
 const initStore = () => {
-    const savedStore = loadStore();
+    loadStore();
     console.log("InitStore");
 }
 
@@ -60,13 +60,13 @@ const addTodo = (description) => {
     }
 
     const newTodo = new Todo(description);
-    state.todos.push(newTodo);  // === state.todos = [newTodo, state.todos];
+    state.todos = [newTodo, ...state.todos];  // === state.todos = [newTodo, state.todos];
     saveStateIntoLocalStorage();
 }
 
 /**
  * 
- * @param {number} todoId 
+ * @param {String} todoId 
  */
 const toggleTodo = (todoId) => {
     state.todos = state.todos.map(todo => {
@@ -80,7 +80,7 @@ const toggleTodo = (todoId) => {
 
 /**
  * 
- * @param {number} todoId 
+ * @param {String} todoId 
  */
 const deleteTodo = (todoId) => {
     state.todos = state.todos.filter(itemTodo => itemTodo.id !== todoId);
