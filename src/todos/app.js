@@ -65,7 +65,6 @@ export const App = (elementId) => {
             filter.addEventListener("click", (event) => {
                 $filters.forEach(item => item !== event.target ? item.classList.remove("selected") : item.classList.add("selected"));
                 const currentFilter = filter.getAttribute("href").split("/")[1];
-                console.log(currentFilter);
                 if(currentFilter) {
                     currentFilter === "completed" ? todoStore.setSelectedFilter("Completed") : todoStore.setSelectedFilter("Pending");
                 } else {
@@ -75,12 +74,6 @@ export const App = (elementId) => {
             })
         })
 
-        /*const $completedFilter = document.querySelector(ElementsIds.completed)
-        $completedFilter.addEventListener("click", function() {
-            todoStore.setSelectedFilter("Completed");
-            const todos = todoStore.getTodos(todoStore.getCurrentFilter());
-            renderTodos(ElementsIds.todoList, todos);
-        })*/
     })();
 
 }

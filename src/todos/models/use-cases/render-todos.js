@@ -8,8 +8,6 @@ import {Todo} from "../todo.model";
  * @param {Todo} todos 
  */
 export const renderTodos = (elementId, todos = []) => {
-    console.log(elementId);
-    console.log(todos);
     const $todoList = document.querySelector(elementId);
     $todoList.innerHTML = "";
     todos.forEach(todo => {
